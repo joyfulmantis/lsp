@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DiagnosticServerCancellationData where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Types.Common
@@ -23,6 +24,8 @@ data DiagnosticServerCancellationData = DiagnosticServerCancellationData
   _retriggerRequest :: Bool
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData DiagnosticServerCancellationData
 
 instance Aeson.ToJSON DiagnosticServerCancellationData where
   toJSON (DiagnosticServerCancellationData arg0) = Aeson.object $ concat $  [["retriggerRequest" Aeson..= arg0]]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.ApplyWorkspaceEditResult where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -39,6 +40,8 @@ data ApplyWorkspaceEditResult = ApplyWorkspaceEditResult
   _failedChange :: (Maybe Language.LSP.Protocol.Types.Common.UInt)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData ApplyWorkspaceEditResult
 
 instance Aeson.ToJSON ApplyWorkspaceEditResult where
   toJSON (ApplyWorkspaceEditResult arg0 arg1 arg2) = Aeson.object $ concat $  [["applied" Aeson..= arg0]

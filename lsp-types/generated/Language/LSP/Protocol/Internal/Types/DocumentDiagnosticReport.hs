@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DocumentDiagnosticReport where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.RelatedFullDocumentDiagnosticReport
@@ -24,4 +25,4 @@ pull request.
 -}
 newtype DocumentDiagnosticReport = DocumentDiagnosticReport (Language.LSP.Protocol.Internal.Types.RelatedFullDocumentDiagnosticReport.RelatedFullDocumentDiagnosticReport Language.LSP.Protocol.Types.Common.|? Language.LSP.Protocol.Internal.Types.RelatedUnchangedDocumentDiagnosticReport.RelatedUnchangedDocumentDiagnosticReport)
   deriving stock (Show, Eq, Ord, Generic)
-  deriving newtype (Aeson.ToJSON, Aeson.FromJSON)
+  deriving newtype (DeepSeq.NFData, Aeson.ToJSON, Aeson.FromJSON)

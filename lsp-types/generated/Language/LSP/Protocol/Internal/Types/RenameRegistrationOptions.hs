@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.RenameRegistrationOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.DocumentSelector
@@ -35,6 +36,8 @@ data RenameRegistrationOptions = RenameRegistrationOptions
   _prepareProvider :: (Maybe Bool)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData RenameRegistrationOptions
 
 instance Aeson.ToJSON RenameRegistrationOptions where
   toJSON (RenameRegistrationOptions arg0 arg1 arg2) = Aeson.object $ concat $  [["documentSelector" Aeson..= arg0]

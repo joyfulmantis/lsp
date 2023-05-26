@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.GeneralClientCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row as Row
 import qualified Data.Row.Aeson as Aeson
@@ -70,6 +71,8 @@ data GeneralClientCapabilities = GeneralClientCapabilities
   _positionEncodings :: (Maybe [Language.LSP.Protocol.Internal.Types.PositionEncodingKind.PositionEncodingKind])
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData GeneralClientCapabilities
 
 instance Aeson.ToJSON GeneralClientCapabilities where
   toJSON (GeneralClientCapabilities arg0 arg1 arg2 arg3) = Aeson.object $ concat $  ["staleRequestSupport" Language.LSP.Protocol.Types.Common..=? arg0

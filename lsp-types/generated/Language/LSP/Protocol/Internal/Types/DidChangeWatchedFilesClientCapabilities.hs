@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DidChangeWatchedFilesClientCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Types.Common
@@ -31,6 +32,8 @@ data DidChangeWatchedFilesClientCapabilities = DidChangeWatchedFilesClientCapabi
   _relativePatternSupport :: (Maybe Bool)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData DidChangeWatchedFilesClientCapabilities
 
 instance Aeson.ToJSON DidChangeWatchedFilesClientCapabilities where
   toJSON (DidChangeWatchedFilesClientCapabilities arg0 arg1) = Aeson.object $ concat $  ["dynamicRegistration" Language.LSP.Protocol.Types.Common..=? arg0

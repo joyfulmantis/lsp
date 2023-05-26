@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.SaveOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Types.Common
@@ -22,6 +23,8 @@ data SaveOptions = SaveOptions
   _includeText :: (Maybe Bool)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData SaveOptions
 
 instance Aeson.ToJSON SaveOptions where
   toJSON (SaveOptions arg0) = Aeson.object $ concat $  ["includeText" Language.LSP.Protocol.Types.Common..=? arg0]

@@ -5,6 +5,7 @@ import           Data.Proxy
 import qualified Data.Text    as T
 import           GHC.TypeLits (KnownNat, KnownSymbol, Nat, Symbol, natVal,
                                symbolVal)
+import Control.DeepSeq (NFData (rnf), rwhnf)
 
 -- | A type whose only inhabitant is a single, statically-known string.
 --
@@ -12,7 +13,6 @@ import           GHC.TypeLits (KnownNat, KnownSymbol, Nat, Symbol, natVal,
 -- are exactly types with a single inhabitant.
 data AString (s :: Symbol) where
   AString :: KnownSymbol s => AString s
-
 instance Show (AString s) where
   show AString = symbolVal (Proxy @s)
 instance Eq (AString s) where
@@ -20,6 +20,8 @@ instance Eq (AString s) where
 instance Ord (AString s) where
   compare _ _ = EQ
 
+instance NFData (AString s) where
+  rnf = rwhnf
 instance ToJSON (AString s) where
   toJSON AString = toJSON (T.pack (symbolVal (Proxy @s)))
 
@@ -44,6 +46,8 @@ instance Eq (AnInteger n) where
 instance Ord (AnInteger n) where
   compare _ _ = EQ
 
+instance NFData (AnInteger n) where
+  rnf = rwhnf
 instance ToJSON (AnInteger n) where
   toJSON AnInteger = toJSON (natVal (Proxy @n))
 

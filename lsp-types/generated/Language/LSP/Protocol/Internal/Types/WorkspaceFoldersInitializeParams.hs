@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.WorkspaceFoldersInitializeParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.WorkspaceFolder
@@ -28,6 +29,8 @@ data WorkspaceFoldersInitializeParams = WorkspaceFoldersInitializeParams
   _workspaceFolders :: (Maybe ([Language.LSP.Protocol.Internal.Types.WorkspaceFolder.WorkspaceFolder] Language.LSP.Protocol.Types.Common.|? Language.LSP.Protocol.Types.Common.Null))
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData WorkspaceFoldersInitializeParams
 
 instance Aeson.ToJSON WorkspaceFoldersInitializeParams where
   toJSON (WorkspaceFoldersInitializeParams arg0) = Aeson.object $ concat $  ["workspaceFolders" Language.LSP.Protocol.Types.Common..=? arg0]

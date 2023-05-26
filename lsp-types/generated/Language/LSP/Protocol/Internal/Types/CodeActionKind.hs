@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.CodeActionKind where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Set
@@ -96,7 +97,8 @@ data CodeActionKind =
   CodeActionKind_SourceFixAll
   | CodeActionKind_Custom Data.Text.Text
   deriving stock (Show, Eq, Ord, Generic)
-  deriving ( Aeson.ToJSON
+  deriving ( DeepSeq.NFData
+  , Aeson.ToJSON
   , Aeson.FromJSON
   , Data.String.IsString ) via (Language.LSP.Protocol.Types.LspEnum.AsLspEnum CodeActionKind Data.Text.Text)
 

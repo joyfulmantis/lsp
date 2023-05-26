@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.SignatureHelpClientCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row as Row
 import qualified Data.Row.Aeson as Aeson
@@ -40,6 +41,8 @@ data SignatureHelpClientCapabilities = SignatureHelpClientCapabilities
   _contextSupport :: (Maybe Bool)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData SignatureHelpClientCapabilities
 
 instance Aeson.ToJSON SignatureHelpClientCapabilities where
   toJSON (SignatureHelpClientCapabilities arg0 arg1 arg2) = Aeson.object $ concat $  ["dynamicRegistration" Language.LSP.Protocol.Types.Common..=? arg0

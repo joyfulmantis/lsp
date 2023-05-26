@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.SemanticTokensDeltaParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -42,6 +43,8 @@ data SemanticTokensDeltaParams = SemanticTokensDeltaParams
   _previousResultId :: Data.Text.Text
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData SemanticTokensDeltaParams
 
 instance Aeson.ToJSON SemanticTokensDeltaParams where
   toJSON (SemanticTokensDeltaParams arg0 arg1 arg2 arg3) = Aeson.object $ concat $  ["workDoneToken" Language.LSP.Protocol.Types.Common..=? arg0

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.InlineValueParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.InlineValueContext
@@ -44,6 +45,8 @@ data InlineValueParams = InlineValueParams
   _context :: Language.LSP.Protocol.Internal.Types.InlineValueContext.InlineValueContext
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData InlineValueParams
 
 instance Aeson.ToJSON InlineValueParams where
   toJSON (InlineValueParams arg0 arg1 arg2 arg3) = Aeson.object $ concat $  ["workDoneToken" Language.LSP.Protocol.Types.Common..=? arg0

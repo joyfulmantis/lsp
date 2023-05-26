@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.NotebookDocumentClientCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.NotebookDocumentSyncClientCapabilities
@@ -27,6 +28,8 @@ data NotebookDocumentClientCapabilities = NotebookDocumentClientCapabilities
   _synchronization :: Language.LSP.Protocol.Internal.Types.NotebookDocumentSyncClientCapabilities.NotebookDocumentSyncClientCapabilities
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData NotebookDocumentClientCapabilities
 
 instance Aeson.ToJSON NotebookDocumentClientCapabilities where
   toJSON (NotebookDocumentClientCapabilities arg0) = Aeson.object $ concat $  [["synchronization" Aeson..= arg0]]

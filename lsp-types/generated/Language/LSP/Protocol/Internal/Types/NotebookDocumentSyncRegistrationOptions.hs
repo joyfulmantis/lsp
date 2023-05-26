@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.NotebookDocumentSyncRegistrationOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row as Row
 import qualified Data.Row.Aeson as Aeson
@@ -39,6 +40,8 @@ data NotebookDocumentSyncRegistrationOptions = NotebookDocumentSyncRegistrationO
   _id :: (Maybe Data.Text.Text)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData NotebookDocumentSyncRegistrationOptions
 
 instance Aeson.ToJSON NotebookDocumentSyncRegistrationOptions where
   toJSON (NotebookDocumentSyncRegistrationOptions arg0 arg1 arg2) = Aeson.object $ concat $  [["notebookSelector" Aeson..= arg0]

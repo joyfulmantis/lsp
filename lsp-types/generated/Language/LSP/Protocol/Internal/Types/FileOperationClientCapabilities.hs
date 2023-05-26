@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.FileOperationClientCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Types.Common
@@ -57,6 +58,8 @@ data FileOperationClientCapabilities = FileOperationClientCapabilities
   _willDelete :: (Maybe Bool)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData FileOperationClientCapabilities
 
 instance Aeson.ToJSON FileOperationClientCapabilities where
   toJSON (FileOperationClientCapabilities arg0 arg1 arg2 arg3 arg4 arg5 arg6) = Aeson.object $ concat $  ["dynamicRegistration" Language.LSP.Protocol.Types.Common..=? arg0

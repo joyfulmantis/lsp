@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DeclarationRegistrationOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -34,6 +35,8 @@ data DeclarationRegistrationOptions = DeclarationRegistrationOptions
   _id :: (Maybe Data.Text.Text)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData DeclarationRegistrationOptions
 
 instance Aeson.ToJSON DeclarationRegistrationOptions where
   toJSON (DeclarationRegistrationOptions arg0 arg1 arg2) = Aeson.object $ concat $  ["workDoneProgress" Language.LSP.Protocol.Types.Common..=? arg0

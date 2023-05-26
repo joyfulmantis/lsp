@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DocumentSymbolRegistrationOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -37,6 +38,8 @@ data DocumentSymbolRegistrationOptions = DocumentSymbolRegistrationOptions
   _label :: (Maybe Data.Text.Text)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData DocumentSymbolRegistrationOptions
 
 instance Aeson.ToJSON DocumentSymbolRegistrationOptions where
   toJSON (DocumentSymbolRegistrationOptions arg0 arg1 arg2) = Aeson.object $ concat $  [["documentSelector" Aeson..= arg0]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.SelectionRangeParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.Position
@@ -41,6 +42,8 @@ data SelectionRangeParams = SelectionRangeParams
   _positions :: [Language.LSP.Protocol.Internal.Types.Position.Position]
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData SelectionRangeParams
 
 instance Aeson.ToJSON SelectionRangeParams where
   toJSON (SelectionRangeParams arg0 arg1 arg2 arg3) = Aeson.object $ concat $  ["workDoneToken" Language.LSP.Protocol.Types.Common..=? arg0

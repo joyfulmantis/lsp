@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DocumentOnTypeFormattingRegistrationOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -35,6 +36,8 @@ data DocumentOnTypeFormattingRegistrationOptions = DocumentOnTypeFormattingRegis
   _moreTriggerCharacter :: (Maybe [Data.Text.Text])
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData DocumentOnTypeFormattingRegistrationOptions
 
 instance Aeson.ToJSON DocumentOnTypeFormattingRegistrationOptions where
   toJSON (DocumentOnTypeFormattingRegistrationOptions arg0 arg1 arg2) = Aeson.object $ concat $  [["documentSelector" Aeson..= arg0]

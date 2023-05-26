@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DocumentHighlightKind where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Set
@@ -34,7 +35,8 @@ data DocumentHighlightKind =
   -}
   DocumentHighlightKind_Write
   deriving stock (Show, Eq, Ord, Generic)
-  deriving ( Aeson.ToJSON
+  deriving ( DeepSeq.NFData
+  , Aeson.ToJSON
   , Aeson.FromJSON ) via (Language.LSP.Protocol.Types.LspEnum.AsLspEnum DocumentHighlightKind Language.LSP.Protocol.Types.Common.UInt)
 
 instance Language.LSP.Protocol.Types.LspEnum.LspEnum DocumentHighlightKind where

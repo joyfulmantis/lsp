@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.InitializedParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Types.Common
@@ -17,6 +18,8 @@ data InitializedParams = InitializedParams
   { 
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData InitializedParams
 
 instance Aeson.ToJSON InitializedParams where
   toJSON (InitializedParams ) = Aeson.object $ concat $  []

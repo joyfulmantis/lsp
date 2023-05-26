@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.RegularExpressionsClientCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -30,6 +31,8 @@ data RegularExpressionsClientCapabilities = RegularExpressionsClientCapabilities
   _version :: (Maybe Data.Text.Text)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData RegularExpressionsClientCapabilities
 
 instance Aeson.ToJSON RegularExpressionsClientCapabilities where
   toJSON (RegularExpressionsClientCapabilities arg0 arg1) = Aeson.object $ concat $  [["engine" Aeson..= arg0]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.CreateFileOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Types.Common
@@ -27,6 +28,8 @@ data CreateFileOptions = CreateFileOptions
   _ignoreIfExists :: (Maybe Bool)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData CreateFileOptions
 
 instance Aeson.ToJSON CreateFileOptions where
   toJSON (CreateFileOptions arg0 arg1) = Aeson.object $ concat $  ["overwrite" Language.LSP.Protocol.Types.Common..=? arg0

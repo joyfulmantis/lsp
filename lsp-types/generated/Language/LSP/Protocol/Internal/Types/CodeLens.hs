@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.CodeLens where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
@@ -40,6 +41,8 @@ data CodeLens = CodeLens
   _data_ :: (Maybe Data.Aeson.Value)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData CodeLens
 
 instance Aeson.ToJSON CodeLens where
   toJSON (CodeLens arg0 arg1 arg2) = Aeson.object $ concat $  [["range" Aeson..= arg0]

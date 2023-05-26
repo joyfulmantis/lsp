@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.MarkedString where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row as Row
 import qualified Data.Row.Aeson as Aeson
@@ -30,4 +31,4 @@ Note that markdown strings will be sanitized - that means html will be escaped.
 -}
 newtype MarkedString = MarkedString (Data.Text.Text Language.LSP.Protocol.Types.Common.|? (Row.Rec ("language" Row..== Data.Text.Text Row..+ ("value" Row..== Data.Text.Text Row..+ Row.Empty))))
   deriving stock (Show, Eq, Ord, Generic)
-  deriving newtype (Aeson.ToJSON, Aeson.FromJSON)
+  deriving newtype (DeepSeq.NFData, Aeson.ToJSON, Aeson.FromJSON)

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DidChangeNotebookDocumentParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.NotebookDocumentChangeEvent
@@ -46,6 +47,8 @@ data DidChangeNotebookDocumentParams = DidChangeNotebookDocumentParams
   _change :: Language.LSP.Protocol.Internal.Types.NotebookDocumentChangeEvent.NotebookDocumentChangeEvent
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData DidChangeNotebookDocumentParams
 
 instance Aeson.ToJSON DidChangeNotebookDocumentParams where
   toJSON (DidChangeNotebookDocumentParams arg0 arg1) = Aeson.object $ concat $  [["notebookDocument" Aeson..= arg0]

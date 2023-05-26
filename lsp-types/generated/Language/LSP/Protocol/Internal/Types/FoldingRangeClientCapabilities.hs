@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.FoldingRangeClientCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row as Row
 import qualified Data.Row.Aeson as Aeson
@@ -54,6 +55,8 @@ data FoldingRangeClientCapabilities = FoldingRangeClientCapabilities
   _foldingRange :: (Maybe (Row.Rec ("collapsedText" Row..== (Maybe Bool) Row..+ Row.Empty)))
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData FoldingRangeClientCapabilities
 
 instance Aeson.ToJSON FoldingRangeClientCapabilities where
   toJSON (FoldingRangeClientCapabilities arg0 arg1 arg2 arg3 arg4) = Aeson.object $ concat $  ["dynamicRegistration" Language.LSP.Protocol.Types.Common..=? arg0

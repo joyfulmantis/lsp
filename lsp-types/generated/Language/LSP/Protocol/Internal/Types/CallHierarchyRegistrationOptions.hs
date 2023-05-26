@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.CallHierarchyRegistrationOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -37,6 +38,8 @@ data CallHierarchyRegistrationOptions = CallHierarchyRegistrationOptions
   _id :: (Maybe Data.Text.Text)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData CallHierarchyRegistrationOptions
 
 instance Aeson.ToJSON CallHierarchyRegistrationOptions where
   toJSON (CallHierarchyRegistrationOptions arg0 arg1 arg2) = Aeson.object $ concat $  [["documentSelector" Aeson..= arg0]

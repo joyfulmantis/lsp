@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.CompletionOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row as Row
 import qualified Data.Row.Aeson as Aeson
@@ -61,6 +62,8 @@ data CompletionOptions = CompletionOptions
   _completionItem :: (Maybe (Row.Rec ("labelDetailsSupport" Row..== (Maybe Bool) Row..+ Row.Empty)))
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData CompletionOptions
 
 instance Aeson.ToJSON CompletionOptions where
   toJSON (CompletionOptions arg0 arg1 arg2 arg3 arg4) = Aeson.object $ concat $  ["workDoneProgress" Language.LSP.Protocol.Types.Common..=? arg0

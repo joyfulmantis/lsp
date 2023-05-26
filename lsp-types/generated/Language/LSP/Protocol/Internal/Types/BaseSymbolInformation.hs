@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.BaseSymbolInformation where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -45,6 +46,8 @@ data BaseSymbolInformation = BaseSymbolInformation
   _containerName :: (Maybe Data.Text.Text)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData BaseSymbolInformation
 
 instance Aeson.ToJSON BaseSymbolInformation where
   toJSON (BaseSymbolInformation arg0 arg1 arg2 arg3) = Aeson.object $ concat $  [["name" Aeson..= arg0]

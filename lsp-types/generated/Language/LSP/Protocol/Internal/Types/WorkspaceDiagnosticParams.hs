@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.WorkspaceDiagnosticParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -44,6 +45,8 @@ data WorkspaceDiagnosticParams = WorkspaceDiagnosticParams
   _previousResultIds :: [Language.LSP.Protocol.Internal.Types.PreviousResultId.PreviousResultId]
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData WorkspaceDiagnosticParams
 
 instance Aeson.ToJSON WorkspaceDiagnosticParams where
   toJSON (WorkspaceDiagnosticParams arg0 arg1 arg2 arg3) = Aeson.object $ concat $  ["workDoneToken" Language.LSP.Protocol.Types.Common..=? arg0

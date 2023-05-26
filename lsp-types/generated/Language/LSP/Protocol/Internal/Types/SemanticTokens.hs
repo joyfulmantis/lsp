@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.SemanticTokens where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -31,6 +32,8 @@ data SemanticTokens = SemanticTokens
   _data_ :: [Language.LSP.Protocol.Types.Common.UInt]
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData SemanticTokens
 
 instance Aeson.ToJSON SemanticTokens where
   toJSON (SemanticTokens arg0 arg1) = Aeson.object $ concat $  ["resultId" Language.LSP.Protocol.Types.Common..=? arg0

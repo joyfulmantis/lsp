@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DocumentColorClientCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Types.Common
@@ -23,6 +24,8 @@ data DocumentColorClientCapabilities = DocumentColorClientCapabilities
   _dynamicRegistration :: (Maybe Bool)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData DocumentColorClientCapabilities
 
 instance Aeson.ToJSON DocumentColorClientCapabilities where
   toJSON (DocumentColorClientCapabilities arg0) = Aeson.object $ concat $  ["dynamicRegistration" Language.LSP.Protocol.Types.Common..=? arg0]

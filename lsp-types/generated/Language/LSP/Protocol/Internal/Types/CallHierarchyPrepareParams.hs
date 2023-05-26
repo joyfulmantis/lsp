@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.CallHierarchyPrepareParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.Position
@@ -37,6 +38,8 @@ data CallHierarchyPrepareParams = CallHierarchyPrepareParams
   _workDoneToken :: (Maybe Language.LSP.Protocol.Internal.Types.ProgressToken.ProgressToken)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData CallHierarchyPrepareParams
 
 instance Aeson.ToJSON CallHierarchyPrepareParams where
   toJSON (CallHierarchyPrepareParams arg0 arg1 arg2) = Aeson.object $ concat $  [["textDocument" Aeson..= arg0]

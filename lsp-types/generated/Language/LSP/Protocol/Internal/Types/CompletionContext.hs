@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.CompletionContext where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -30,6 +31,8 @@ data CompletionContext = CompletionContext
   _triggerCharacter :: (Maybe Data.Text.Text)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData CompletionContext
 
 instance Aeson.ToJSON CompletionContext where
   toJSON (CompletionContext arg0 arg1) = Aeson.object $ concat $  [["triggerKind" Aeson..= arg0]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DiagnosticRelatedInformation where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -31,6 +32,8 @@ data DiagnosticRelatedInformation = DiagnosticRelatedInformation
   _message :: Data.Text.Text
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData DiagnosticRelatedInformation
 
 instance Aeson.ToJSON DiagnosticRelatedInformation where
   toJSON (DiagnosticRelatedInformation arg0 arg1) = Aeson.object $ concat $  [["location" Aeson..= arg0]

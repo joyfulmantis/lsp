@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.PreviousResultId where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -32,6 +33,8 @@ data PreviousResultId = PreviousResultId
   _value :: Data.Text.Text
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData PreviousResultId
 
 instance Aeson.ToJSON PreviousResultId where
   toJSON (PreviousResultId arg0 arg1) = Aeson.object $ concat $  [["uri" Aeson..= arg0]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.FileSystemWatcher where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.GlobPattern
@@ -32,6 +33,8 @@ data FileSystemWatcher = FileSystemWatcher
   _kind :: (Maybe Language.LSP.Protocol.Internal.Types.WatchKind.WatchKind)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData FileSystemWatcher
 
 instance Aeson.ToJSON FileSystemWatcher where
   toJSON (FileSystemWatcher arg0 arg1) = Aeson.object $ concat $  [["globPattern" Aeson..= arg0]

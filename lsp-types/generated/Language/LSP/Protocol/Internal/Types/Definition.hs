@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.Definition where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.Location
@@ -22,4 +23,4 @@ by the client.
 -}
 newtype Definition = Definition (Language.LSP.Protocol.Internal.Types.Location.Location Language.LSP.Protocol.Types.Common.|? [Language.LSP.Protocol.Internal.Types.Location.Location])
   deriving stock (Show, Eq, Ord, Generic)
-  deriving newtype (Aeson.ToJSON, Aeson.FromJSON)
+  deriving newtype (DeepSeq.NFData, Aeson.ToJSON, Aeson.FromJSON)

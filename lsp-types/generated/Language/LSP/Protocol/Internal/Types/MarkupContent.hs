@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.MarkupContent where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -50,6 +51,8 @@ data MarkupContent = MarkupContent
   _value :: Data.Text.Text
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData MarkupContent
 
 instance Aeson.ToJSON MarkupContent where
   toJSON (MarkupContent arg0 arg1) = Aeson.object $ concat $  [["kind" Aeson..= arg0]

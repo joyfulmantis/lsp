@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DocumentSymbolOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -30,6 +31,8 @@ data DocumentSymbolOptions = DocumentSymbolOptions
   _label :: (Maybe Data.Text.Text)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData DocumentSymbolOptions
 
 instance Aeson.ToJSON DocumentSymbolOptions where
   toJSON (DocumentSymbolOptions arg0 arg1) = Aeson.object $ concat $  ["workDoneProgress" Language.LSP.Protocol.Types.Common..=? arg0

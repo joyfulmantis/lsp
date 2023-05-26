@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.WorkspaceEditClientCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row as Row
 import qualified Data.Row.Aeson as Aeson
@@ -59,6 +60,8 @@ data WorkspaceEditClientCapabilities = WorkspaceEditClientCapabilities
   _changeAnnotationSupport :: (Maybe (Row.Rec ("groupsOnLabel" Row..== (Maybe Bool) Row..+ Row.Empty)))
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData WorkspaceEditClientCapabilities
 
 instance Aeson.ToJSON WorkspaceEditClientCapabilities where
   toJSON (WorkspaceEditClientCapabilities arg0 arg1 arg2 arg3 arg4) = Aeson.object $ concat $  ["documentChanges" Language.LSP.Protocol.Types.Common..=? arg0

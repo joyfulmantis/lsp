@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.PrepareSupportDefaultBehavior where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Set
@@ -24,7 +25,8 @@ data PrepareSupportDefaultBehavior =
   -}
   PrepareSupportDefaultBehavior_Identifier
   deriving stock (Show, Eq, Ord, Generic)
-  deriving ( Aeson.ToJSON
+  deriving ( DeepSeq.NFData
+  , Aeson.ToJSON
   , Aeson.FromJSON ) via (Language.LSP.Protocol.Types.LspEnum.AsLspEnum PrepareSupportDefaultBehavior Language.LSP.Protocol.Types.Common.UInt)
 
 instance Language.LSP.Protocol.Types.LspEnum.LspEnum PrepareSupportDefaultBehavior where

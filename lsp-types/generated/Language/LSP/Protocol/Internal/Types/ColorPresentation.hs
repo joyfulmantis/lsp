@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.ColorPresentation where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -38,6 +39,8 @@ data ColorPresentation = ColorPresentation
   _additionalTextEdits :: (Maybe [Language.LSP.Protocol.Internal.Types.TextEdit.TextEdit])
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData ColorPresentation
 
 instance Aeson.ToJSON ColorPresentation where
   toJSON (ColorPresentation arg0 arg1 arg2) = Aeson.object $ concat $  [["label" Aeson..= arg0]

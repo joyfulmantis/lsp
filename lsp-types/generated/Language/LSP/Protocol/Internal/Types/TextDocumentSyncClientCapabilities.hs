@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.TextDocumentSyncClientCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Types.Common
@@ -38,6 +39,8 @@ data TextDocumentSyncClientCapabilities = TextDocumentSyncClientCapabilities
   _didSave :: (Maybe Bool)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData TextDocumentSyncClientCapabilities
 
 instance Aeson.ToJSON TextDocumentSyncClientCapabilities where
   toJSON (TextDocumentSyncClientCapabilities arg0 arg1 arg2 arg3) = Aeson.object $ concat $  ["dynamicRegistration" Language.LSP.Protocol.Types.Common..=? arg0

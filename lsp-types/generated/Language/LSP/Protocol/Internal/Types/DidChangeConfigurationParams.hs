@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DidChangeConfigurationParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
@@ -23,6 +24,8 @@ data DidChangeConfigurationParams = DidChangeConfigurationParams
   _settings :: Data.Aeson.Value
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData DidChangeConfigurationParams
 
 instance Aeson.ToJSON DidChangeConfigurationParams where
   toJSON (DidChangeConfigurationParams arg0) = Aeson.object $ concat $  [["settings" Aeson..= arg0]]

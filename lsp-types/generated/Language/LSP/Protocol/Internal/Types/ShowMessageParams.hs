@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.ShowMessageParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -29,6 +30,8 @@ data ShowMessageParams = ShowMessageParams
   _message :: Data.Text.Text
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData ShowMessageParams
 
 instance Aeson.ToJSON ShowMessageParams where
   toJSON (ShowMessageParams arg0 arg1) = Aeson.object $ concat $  [["type" Aeson..= arg0]

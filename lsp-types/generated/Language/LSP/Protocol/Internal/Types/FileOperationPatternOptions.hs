@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.FileOperationPatternOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Types.Common
@@ -24,6 +25,8 @@ data FileOperationPatternOptions = FileOperationPatternOptions
   _ignoreCase :: (Maybe Bool)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData FileOperationPatternOptions
 
 instance Aeson.ToJSON FileOperationPatternOptions where
   toJSON (FileOperationPatternOptions arg0) = Aeson.object $ concat $  ["ignoreCase" Language.LSP.Protocol.Types.Common..=? arg0]

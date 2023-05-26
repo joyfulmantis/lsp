@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.RelativePattern where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.Pattern
@@ -35,6 +36,8 @@ data RelativePattern = RelativePattern
   _pattern :: Language.LSP.Protocol.Internal.Types.Pattern.Pattern
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData RelativePattern
 
 instance Aeson.ToJSON RelativePattern where
   toJSON (RelativePattern arg0 arg1) = Aeson.object $ concat $  [["baseUri" Aeson..= arg0]

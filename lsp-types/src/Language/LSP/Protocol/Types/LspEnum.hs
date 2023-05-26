@@ -7,6 +7,7 @@ import           Data.Kind
 import qualified Data.Set    as Set
 import           Data.String (IsString (..))
 import qualified Data.Text   as Text
+import Control.DeepSeq (NFData)
 
 -- | A class for types that represent a LSP enum type.
 --
@@ -39,7 +40,7 @@ class LspEnum a => LspOpenEnum a where
 -- | Newtype for @deriving via@ to get standard JSON and 'IsString' instances in terms of the 'LspEnum'
 -- class methods.
 newtype AsLspEnum a b = AsLspEnum a
-
+  deriving newtype (NFData)
 instance (LspEnum a, EnumBaseType a ~ b, Aeson.ToJSON b) => Aeson.ToJSON (AsLspEnum a b) where
   toJSON (AsLspEnum e) = Aeson.toJSON (toEnumBaseType e)
 

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.RenameClientCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.PrepareSupportDefaultBehavior
@@ -51,6 +52,8 @@ data RenameClientCapabilities = RenameClientCapabilities
   _honorsChangeAnnotations :: (Maybe Bool)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData RenameClientCapabilities
 
 instance Aeson.ToJSON RenameClientCapabilities where
   toJSON (RenameClientCapabilities arg0 arg1 arg2 arg3) = Aeson.object $ concat $  ["dynamicRegistration" Language.LSP.Protocol.Types.Common..=? arg0

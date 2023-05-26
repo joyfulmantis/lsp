@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.NotebookDocument where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
@@ -52,6 +53,8 @@ data NotebookDocument = NotebookDocument
   _cells :: [Language.LSP.Protocol.Internal.Types.NotebookCell.NotebookCell]
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData NotebookDocument
 
 instance Aeson.ToJSON NotebookDocument where
   toJSON (NotebookDocument arg0 arg1 arg2 arg3 arg4) = Aeson.object $ concat $  [["uri" Aeson..= arg0]

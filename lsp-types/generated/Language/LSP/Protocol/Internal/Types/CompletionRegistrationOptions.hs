@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.CompletionRegistrationOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row as Row
 import qualified Data.Row.Aeson as Aeson
@@ -68,6 +69,8 @@ data CompletionRegistrationOptions = CompletionRegistrationOptions
   _completionItem :: (Maybe (Row.Rec ("labelDetailsSupport" Row..== (Maybe Bool) Row..+ Row.Empty)))
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData CompletionRegistrationOptions
 
 instance Aeson.ToJSON CompletionRegistrationOptions where
   toJSON (CompletionRegistrationOptions arg0 arg1 arg2 arg3 arg4 arg5) = Aeson.object $ concat $  [["documentSelector" Aeson..= arg0]

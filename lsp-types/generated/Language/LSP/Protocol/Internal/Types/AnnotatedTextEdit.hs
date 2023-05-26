@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.AnnotatedTextEdit where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -39,6 +40,8 @@ data AnnotatedTextEdit = AnnotatedTextEdit
   _annotationId :: Language.LSP.Protocol.Internal.Types.ChangeAnnotationIdentifier.ChangeAnnotationIdentifier
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData AnnotatedTextEdit
 
 instance Aeson.ToJSON AnnotatedTextEdit where
   toJSON (AnnotatedTextEdit arg0 arg1 arg2) = Aeson.object $ concat $  [["range" Aeson..= arg0]

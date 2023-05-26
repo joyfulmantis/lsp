@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.CodeActionContext where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.CodeActionKind
@@ -45,6 +46,8 @@ data CodeActionContext = CodeActionContext
   _triggerKind :: (Maybe Language.LSP.Protocol.Internal.Types.CodeActionTriggerKind.CodeActionTriggerKind)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData CodeActionContext
 
 instance Aeson.ToJSON CodeActionContext where
   toJSON (CodeActionContext arg0 arg1 arg2) = Aeson.object $ concat $  [["diagnostics" Aeson..= arg0]

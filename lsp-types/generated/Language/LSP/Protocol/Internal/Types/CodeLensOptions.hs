@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.CodeLensOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Types.Common
@@ -26,6 +27,8 @@ data CodeLensOptions = CodeLensOptions
   _resolveProvider :: (Maybe Bool)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData CodeLensOptions
 
 instance Aeson.ToJSON CodeLensOptions where
   toJSON (CodeLensOptions arg0 arg1) = Aeson.object $ concat $  ["workDoneProgress" Language.LSP.Protocol.Types.Common..=? arg0

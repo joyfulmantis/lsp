@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.CompletionParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.CompletionContext
@@ -48,6 +49,8 @@ data CompletionParams = CompletionParams
   _context :: (Maybe Language.LSP.Protocol.Internal.Types.CompletionContext.CompletionContext)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData CompletionParams
 
 instance Aeson.ToJSON CompletionParams where
   toJSON (CompletionParams arg0 arg1 arg2 arg3 arg4) = Aeson.object $ concat $  [["textDocument" Aeson..= arg0]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.ChangeAnnotationIdentifier where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -16,7 +17,8 @@ An identifier to refer to a change annotation stored with a workspace edit.
 -}
 newtype ChangeAnnotationIdentifier = ChangeAnnotationIdentifier Data.Text.Text
   deriving stock (Show, Eq, Ord, Generic)
-  deriving newtype ( Aeson.ToJSON
+  deriving newtype ( DeepSeq.NFData
+  , Aeson.ToJSON
   , Aeson.FromJSON
   , Aeson.ToJSONKey
   , Aeson.FromJSONKey )

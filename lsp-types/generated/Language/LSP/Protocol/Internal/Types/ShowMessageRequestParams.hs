@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.ShowMessageRequestParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -34,6 +35,8 @@ data ShowMessageRequestParams = ShowMessageRequestParams
   _actions :: (Maybe [Language.LSP.Protocol.Internal.Types.MessageActionItem.MessageActionItem])
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData ShowMessageRequestParams
 
 instance Aeson.ToJSON ShowMessageRequestParams where
   toJSON (ShowMessageRequestParams arg0 arg1 arg2) = Aeson.object $ concat $  [["type" Aeson..= arg0]

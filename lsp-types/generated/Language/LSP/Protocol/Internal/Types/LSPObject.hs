@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.LSPObject where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson
 import qualified Data.Aeson as Aeson
 import qualified Data.Map
@@ -19,4 +20,4 @@ LSP object definition.
 -}
 newtype LSPObject = LSPObject (Data.Map.Map Data.Text.Text Data.Aeson.Value)
   deriving stock (Show, Eq, Ord, Generic)
-  deriving newtype (Aeson.ToJSON, Aeson.FromJSON)
+  deriving newtype (DeepSeq.NFData, Aeson.ToJSON, Aeson.FromJSON)

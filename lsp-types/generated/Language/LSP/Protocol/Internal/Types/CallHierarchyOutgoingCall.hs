@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.CallHierarchyOutgoingCall where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.CallHierarchyItem
@@ -33,6 +34,8 @@ data CallHierarchyOutgoingCall = CallHierarchyOutgoingCall
   _fromRanges :: [Language.LSP.Protocol.Internal.Types.Range.Range]
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData CallHierarchyOutgoingCall
 
 instance Aeson.ToJSON CallHierarchyOutgoingCall where
   toJSON (CallHierarchyOutgoingCall arg0 arg1) = Aeson.object $ concat $  [["to" Aeson..= arg0]

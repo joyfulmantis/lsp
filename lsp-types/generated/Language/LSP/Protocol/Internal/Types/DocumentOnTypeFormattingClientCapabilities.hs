@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DocumentOnTypeFormattingClientCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Types.Common
@@ -22,6 +23,8 @@ data DocumentOnTypeFormattingClientCapabilities = DocumentOnTypeFormattingClient
   _dynamicRegistration :: (Maybe Bool)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData DocumentOnTypeFormattingClientCapabilities
 
 instance Aeson.ToJSON DocumentOnTypeFormattingClientCapabilities where
   toJSON (DocumentOnTypeFormattingClientCapabilities arg0) = Aeson.object $ concat $  ["dynamicRegistration" Language.LSP.Protocol.Types.Common..=? arg0]

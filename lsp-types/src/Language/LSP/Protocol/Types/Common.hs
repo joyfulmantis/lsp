@@ -105,8 +105,9 @@ instance (NFData a, NFData b) => NFData (a |? b)
 --
 -- This is useful since the LSP specification often includes types like @a | null@
 -- as distinct from an optional value of type @a@.
-data Null = Null deriving stock (Eq,Ord,Show)
+data Null = Null deriving stock (Eq,Ord,Show,Generic)
 
+instance NFData Null
 instance ToJSON Null where
   toJSON Null = J.Null
 instance FromJSON Null where

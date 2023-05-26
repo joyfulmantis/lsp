@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.CallHierarchyItem where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
@@ -68,6 +69,8 @@ data CallHierarchyItem = CallHierarchyItem
   _data_ :: (Maybe Data.Aeson.Value)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData CallHierarchyItem
 
 instance Aeson.ToJSON CallHierarchyItem where
   toJSON (CallHierarchyItem arg0 arg1 arg2 arg3 arg4 arg5 arg6 arg7) = Aeson.object $ concat $  [["name" Aeson..= arg0]

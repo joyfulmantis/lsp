@@ -308,6 +308,10 @@ printStruct tn s@Structure{name, documentation, since, proposed, deprecated} = d
   ensureImport "Data.Aeson" (QualAs "Aeson")
   ensureImport "Data.Row.Aeson" (QualAs "Aeson")
   matcherName <- entityName "Language.LSP.Protocol.Types.Common" ".=?"
+
+  ensureImport "Control.DeepSeq" (QualAs "DeepSeq")
+  let nfData = "instance DeepSeq.NFData" <+> pretty tn
+
   let toJsonD =
         let (unzip -> (args, pairEs)) = (flip fmap) (zip props [0..]) $ \(Property{name, optional}, i) ->
               let n :: T.Text = "arg" <> (T.pack $ show i)
@@ -334,6 +338,8 @@ printStruct tn s@Structure{name, documentation, since, proposed, deprecated} = d
 
   pure $
     datad <>
+    hardline <> hardline <>
+    nfData <>
     hardline <> hardline <>
     toJsonD <>
     hardline <> hardline <>
@@ -432,12 +438,13 @@ printEnum tn Enumeration{name, type_, values, supportsCustomValues, documentatio
   isStringN <- pretty <$> entityName "Data.String" "IsString"
 
   let deprecations = optDeprecated tn deprecated ++ (flip concatMap values' $ \EnumerationEntry{name, deprecated} -> optDeprecated (makeConstrName (Just enumName) name) deprecated)
+  ensureImport "Control.DeepSeq" (QualAs "DeepSeq")
 
   ensureImport "GHC.Generics" Unqual
   dataDoc <- multilineHaddock . pretty <$> mkDocumentation documentation since proposed
   let derivDoc =
         let
-          toDeriveViaLspEnum = ["Aeson.ToJSON", "Aeson.FromJSON"] ++ if custom && isString then [isStringN] else []
+          toDeriveViaLspEnum = ["DeepSeq.NFData", "Aeson.ToJSON", "Aeson.FromJSON"] ++ if custom && isString then [isStringN] else []
           stockDeriv = "deriving stock" <+> tupled (fmap pretty toStockDerive)
           viaDeriv = "deriving" <+> tupled toDeriveViaLspEnum <+> "via" <+> parens (asLspEnumN <+> pretty tn <+> ty)
         in indent indentSize $ hardvcat [stockDeriv, viaDeriv]
@@ -509,9 +516,10 @@ printAlias hsName TypeAlias{name, type_, documentation, since, proposed, depreca
   ensureImport "GHC.Generics" Unqual
   ensureImport "Data.Aeson" (QualAs "Aeson")
   ensureImport "Data.Row.Aeson" (QualAs "Aeson")
+  ensureImport "Control.DeepSeq" (QualAs "DeepSeq")
   -- In practice, it seems that only base types and aliases to base types get used as map keys, so deriving
   -- To/FromJSONKey for them seems to be enough
-  let aesonDeriving :: [Doc ann] = ["Aeson.ToJSON", "Aeson.FromJSON"] ++ case type_ of { BaseType _ -> ["Aeson.ToJSONKey", "Aeson.FromJSONKey"]; _ -> [] }
+  let aesonDeriving :: [Doc ann] = ["DeepSeq.NFData", "Aeson.ToJSON", "Aeson.FromJSON"] ++ case type_ of { BaseType _ -> ["Aeson.ToJSONKey", "Aeson.FromJSONKey"]; _ -> [] }
       derivDoc = indent indentSize $ hardvcat ["deriving stock" <+> tupled (fmap pretty toStockDerive), "deriving newtype" <+> tupled aesonDeriving]
   dataDoc <- multilineHaddock . pretty <$> mkDocumentation documentation since proposed
   let dataDecl = "newtype" <+> pretty hsName <+> "=" <+> pretty hsName <+> rhs

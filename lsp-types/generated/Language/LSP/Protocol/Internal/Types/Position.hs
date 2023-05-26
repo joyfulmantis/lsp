@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.Position where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Types.Common
@@ -62,6 +63,8 @@ data Position = Position
   _character :: Language.LSP.Protocol.Types.Common.UInt
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData Position
 
 instance Aeson.ToJSON Position where
   toJSON (Position arg0 arg1) = Aeson.object $ concat $  [["line" Aeson..= arg0]

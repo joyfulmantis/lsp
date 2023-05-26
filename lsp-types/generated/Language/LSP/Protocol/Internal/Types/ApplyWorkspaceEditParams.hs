@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.ApplyWorkspaceEditParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -31,6 +32,8 @@ data ApplyWorkspaceEditParams = ApplyWorkspaceEditParams
   _edit :: Language.LSP.Protocol.Internal.Types.WorkspaceEdit.WorkspaceEdit
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData ApplyWorkspaceEditParams
 
 instance Aeson.ToJSON ApplyWorkspaceEditParams where
   toJSON (ApplyWorkspaceEditParams arg0 arg1) = Aeson.object $ concat $  ["label" Language.LSP.Protocol.Types.Common..=? arg0

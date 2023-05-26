@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.WorkDoneProgressEnd where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -28,6 +29,8 @@ data WorkDoneProgressEnd = WorkDoneProgressEnd
   _message :: (Maybe Data.Text.Text)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData WorkDoneProgressEnd
 
 instance Aeson.ToJSON WorkDoneProgressEnd where
   toJSON (WorkDoneProgressEnd arg0 arg1) = Aeson.object $ concat $  [["kind" Aeson..= arg0]

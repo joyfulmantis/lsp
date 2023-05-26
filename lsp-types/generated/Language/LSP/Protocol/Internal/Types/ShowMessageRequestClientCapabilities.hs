@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.ShowMessageRequestClientCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row as Row
 import qualified Data.Row.Aeson as Aeson
@@ -23,6 +24,8 @@ data ShowMessageRequestClientCapabilities = ShowMessageRequestClientCapabilities
   _messageActionItem :: (Maybe (Row.Rec ("additionalPropertiesSupport" Row..== (Maybe Bool) Row..+ Row.Empty)))
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData ShowMessageRequestClientCapabilities
 
 instance Aeson.ToJSON ShowMessageRequestClientCapabilities where
   toJSON (ShowMessageRequestClientCapabilities arg0) = Aeson.object $ concat $  ["messageActionItem" Language.LSP.Protocol.Types.Common..=? arg0]

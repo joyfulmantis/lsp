@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.TextEdit where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -31,6 +32,8 @@ data TextEdit = TextEdit
   _newText :: Data.Text.Text
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData TextEdit
 
 instance Aeson.ToJSON TextEdit where
   toJSON (TextEdit arg0 arg1) = Aeson.object $ concat $  [["range" Aeson..= arg0]

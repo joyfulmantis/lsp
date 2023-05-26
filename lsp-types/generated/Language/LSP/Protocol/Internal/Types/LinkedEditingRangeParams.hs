@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.LinkedEditingRangeParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.Position
@@ -34,6 +35,8 @@ data LinkedEditingRangeParams = LinkedEditingRangeParams
   _workDoneToken :: (Maybe Language.LSP.Protocol.Internal.Types.ProgressToken.ProgressToken)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData LinkedEditingRangeParams
 
 instance Aeson.ToJSON LinkedEditingRangeParams where
   toJSON (LinkedEditingRangeParams arg0 arg1 arg2) = Aeson.object $ concat $  [["textDocument" Aeson..= arg0]

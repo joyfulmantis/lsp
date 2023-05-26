@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.TextDocumentChangeRegistrationOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.DocumentSelector
@@ -30,6 +31,8 @@ data TextDocumentChangeRegistrationOptions = TextDocumentChangeRegistrationOptio
   _syncKind :: Language.LSP.Protocol.Internal.Types.TextDocumentSyncKind.TextDocumentSyncKind
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData TextDocumentChangeRegistrationOptions
 
 instance Aeson.ToJSON TextDocumentChangeRegistrationOptions where
   toJSON (TextDocumentChangeRegistrationOptions arg0 arg1) = Aeson.object $ concat $  [["documentSelector" Aeson..= arg0]

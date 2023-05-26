@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.WorkDoneProgressCancelParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.ProgressToken
@@ -22,6 +23,8 @@ data WorkDoneProgressCancelParams = WorkDoneProgressCancelParams
   _token :: Language.LSP.Protocol.Internal.Types.ProgressToken.ProgressToken
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData WorkDoneProgressCancelParams
 
 instance Aeson.ToJSON WorkDoneProgressCancelParams where
   toJSON (WorkDoneProgressCancelParams arg0) = Aeson.object $ concat $  [["token" Aeson..= arg0]]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.ExecuteCommandParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
@@ -35,6 +36,8 @@ data ExecuteCommandParams = ExecuteCommandParams
   _arguments :: (Maybe [Data.Aeson.Value])
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData ExecuteCommandParams
 
 instance Aeson.ToJSON ExecuteCommandParams where
   toJSON (ExecuteCommandParams arg0 arg1 arg2) = Aeson.object $ concat $  ["workDoneToken" Language.LSP.Protocol.Types.Common..=? arg0

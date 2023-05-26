@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.TypeDefinitionRegistrationOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -34,6 +35,8 @@ data TypeDefinitionRegistrationOptions = TypeDefinitionRegistrationOptions
   _id :: (Maybe Data.Text.Text)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData TypeDefinitionRegistrationOptions
 
 instance Aeson.ToJSON TypeDefinitionRegistrationOptions where
   toJSON (TypeDefinitionRegistrationOptions arg0 arg1 arg2) = Aeson.object $ concat $  [["documentSelector" Aeson..= arg0]

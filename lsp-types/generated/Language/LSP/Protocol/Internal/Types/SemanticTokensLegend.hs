@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.SemanticTokensLegend where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -28,6 +29,8 @@ data SemanticTokensLegend = SemanticTokensLegend
   _tokenModifiers :: [Data.Text.Text]
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData SemanticTokensLegend
 
 instance Aeson.ToJSON SemanticTokensLegend where
   toJSON (SemanticTokensLegend arg0 arg1) = Aeson.object $ concat $  [["tokenTypes" Aeson..= arg0]

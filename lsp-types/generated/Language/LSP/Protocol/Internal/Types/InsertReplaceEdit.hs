@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.InsertReplaceEdit where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -36,6 +37,8 @@ data InsertReplaceEdit = InsertReplaceEdit
   _replace :: Language.LSP.Protocol.Internal.Types.Range.Range
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData InsertReplaceEdit
 
 instance Aeson.ToJSON InsertReplaceEdit where
   toJSON (InsertReplaceEdit arg0 arg1 arg2) = Aeson.object $ concat $  [["newText" Aeson..= arg0]

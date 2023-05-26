@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.CancelParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -22,6 +23,8 @@ data CancelParams = CancelParams
   _id :: (Language.LSP.Protocol.Types.Common.Int32 Language.LSP.Protocol.Types.Common.|? Data.Text.Text)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData CancelParams
 
 instance Aeson.ToJSON CancelParams where
   toJSON (CancelParams arg0) = Aeson.object $ concat $  [["id" Aeson..= arg0]]

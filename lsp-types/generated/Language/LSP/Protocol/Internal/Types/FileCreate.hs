@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.FileCreate where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -25,6 +26,8 @@ data FileCreate = FileCreate
   _uri :: Data.Text.Text
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData FileCreate
 
 instance Aeson.ToJSON FileCreate where
   toJSON (FileCreate arg0) = Aeson.object $ concat $  [["uri" Aeson..= arg0]]

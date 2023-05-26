@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.FileDelete where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -25,6 +26,8 @@ data FileDelete = FileDelete
   _uri :: Data.Text.Text
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData FileDelete
 
 instance Aeson.ToJSON FileDelete where
   toJSON (FileDelete arg0) = Aeson.object $ concat $  [["uri" Aeson..= arg0]]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.WorkspaceFoldersChangeEvent where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.WorkspaceFolder
@@ -28,6 +29,8 @@ data WorkspaceFoldersChangeEvent = WorkspaceFoldersChangeEvent
   _removed :: [Language.LSP.Protocol.Internal.Types.WorkspaceFolder.WorkspaceFolder]
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData WorkspaceFoldersChangeEvent
 
 instance Aeson.ToJSON WorkspaceFoldersChangeEvent where
   toJSON (WorkspaceFoldersChangeEvent arg0 arg1) = Aeson.object $ concat $  [["added" Aeson..= arg0]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.Pattern where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -24,7 +25,8 @@ The glob pattern to watch relative to the base path. Glob patterns can have the 
 -}
 newtype Pattern = Pattern Data.Text.Text
   deriving stock (Show, Eq, Ord, Generic)
-  deriving newtype ( Aeson.ToJSON
+  deriving newtype ( DeepSeq.NFData
+  , Aeson.ToJSON
   , Aeson.FromJSON
   , Aeson.ToJSONKey
   , Aeson.FromJSONKey )

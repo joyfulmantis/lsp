@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.LinkedEditingRangeRegistrationOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -34,6 +35,8 @@ data LinkedEditingRangeRegistrationOptions = LinkedEditingRangeRegistrationOptio
   _id :: (Maybe Data.Text.Text)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData LinkedEditingRangeRegistrationOptions
 
 instance Aeson.ToJSON LinkedEditingRangeRegistrationOptions where
   toJSON (LinkedEditingRangeRegistrationOptions arg0 arg1 arg2) = Aeson.object $ concat $  [["documentSelector" Aeson..= arg0]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.Diagnostic where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
@@ -82,6 +83,8 @@ data Diagnostic = Diagnostic
   _data_ :: (Maybe Data.Aeson.Value)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData Diagnostic
 
 instance Aeson.ToJSON Diagnostic where
   toJSON (Diagnostic arg0 arg1 arg2 arg3 arg4 arg5 arg6 arg7 arg8) = Aeson.object $ concat $  [["range" Aeson..= arg0]

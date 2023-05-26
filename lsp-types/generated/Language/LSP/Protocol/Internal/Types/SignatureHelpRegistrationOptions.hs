@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.SignatureHelpRegistrationOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -44,6 +45,8 @@ data SignatureHelpRegistrationOptions = SignatureHelpRegistrationOptions
   _retriggerCharacters :: (Maybe [Data.Text.Text])
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData SignatureHelpRegistrationOptions
 
 instance Aeson.ToJSON SignatureHelpRegistrationOptions where
   toJSON (SignatureHelpRegistrationOptions arg0 arg1 arg2 arg3) = Aeson.object $ concat $  [["documentSelector" Aeson..= arg0]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.NotebookDocumentIdentifier where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Types.Common
@@ -25,6 +26,8 @@ data NotebookDocumentIdentifier = NotebookDocumentIdentifier
   _uri :: Language.LSP.Protocol.Types.Uri.Uri
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData NotebookDocumentIdentifier
 
 instance Aeson.ToJSON NotebookDocumentIdentifier where
   toJSON (NotebookDocumentIdentifier arg0) = Aeson.object $ concat $  [["uri" Aeson..= arg0]]

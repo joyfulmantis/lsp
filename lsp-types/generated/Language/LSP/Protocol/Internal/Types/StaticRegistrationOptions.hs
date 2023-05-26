@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.StaticRegistrationOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -25,6 +26,8 @@ data StaticRegistrationOptions = StaticRegistrationOptions
   _id :: (Maybe Data.Text.Text)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData StaticRegistrationOptions
 
 instance Aeson.ToJSON StaticRegistrationOptions where
   toJSON (StaticRegistrationOptions arg0) = Aeson.object $ concat $  ["id" Language.LSP.Protocol.Types.Common..=? arg0]

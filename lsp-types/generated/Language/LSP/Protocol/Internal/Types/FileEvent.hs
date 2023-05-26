@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.FileEvent where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.FileChangeType
@@ -29,6 +30,8 @@ data FileEvent = FileEvent
   _type_ :: Language.LSP.Protocol.Internal.Types.FileChangeType.FileChangeType
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData FileEvent
 
 instance Aeson.ToJSON FileEvent where
   toJSON (FileEvent arg0 arg1) = Aeson.object $ concat $  [["uri" Aeson..= arg0]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.CodeActionClientCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row as Row
 import qualified Data.Row.Aeson as Aeson
@@ -76,6 +77,8 @@ data CodeActionClientCapabilities = CodeActionClientCapabilities
   _honorsChangeAnnotations :: (Maybe Bool)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData CodeActionClientCapabilities
 
 instance Aeson.ToJSON CodeActionClientCapabilities where
   toJSON (CodeActionClientCapabilities arg0 arg1 arg2 arg3 arg4 arg5 arg6) = Aeson.object $ concat $  ["dynamicRegistration" Language.LSP.Protocol.Types.Common..=? arg0

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.WorkspaceSymbol where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson
 import qualified Data.Aeson as Aeson
 import qualified Data.Row as Row
@@ -68,6 +69,8 @@ data WorkspaceSymbol = WorkspaceSymbol
   _data_ :: (Maybe Data.Aeson.Value)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData WorkspaceSymbol
 
 instance Aeson.ToJSON WorkspaceSymbol where
   toJSON (WorkspaceSymbol arg0 arg1 arg2 arg3 arg4 arg5) = Aeson.object $ concat $  [["name" Aeson..= arg0]

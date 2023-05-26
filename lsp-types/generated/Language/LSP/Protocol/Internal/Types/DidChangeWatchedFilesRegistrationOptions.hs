@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DidChangeWatchedFilesRegistrationOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.FileSystemWatcher
@@ -23,6 +24,8 @@ data DidChangeWatchedFilesRegistrationOptions = DidChangeWatchedFilesRegistratio
   _watchers :: [Language.LSP.Protocol.Internal.Types.FileSystemWatcher.FileSystemWatcher]
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData DidChangeWatchedFilesRegistrationOptions
 
 instance Aeson.ToJSON DidChangeWatchedFilesRegistrationOptions where
   toJSON (DidChangeWatchedFilesRegistrationOptions arg0) = Aeson.object $ concat $  [["watchers" Aeson..= arg0]]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.ColorPresentationParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.Color
@@ -47,6 +48,8 @@ data ColorPresentationParams = ColorPresentationParams
   _range :: Language.LSP.Protocol.Internal.Types.Range.Range
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData ColorPresentationParams
 
 instance Aeson.ToJSON ColorPresentationParams where
   toJSON (ColorPresentationParams arg0 arg1 arg2 arg3 arg4) = Aeson.object $ concat $  ["workDoneToken" Language.LSP.Protocol.Types.Common..=? arg0

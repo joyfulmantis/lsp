@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.WorkspaceEdit where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Map
 import qualified Data.Row.Aeson as Aeson
@@ -66,6 +67,8 @@ data WorkspaceEdit = WorkspaceEdit
   _changeAnnotations :: (Maybe (Data.Map.Map Language.LSP.Protocol.Internal.Types.ChangeAnnotationIdentifier.ChangeAnnotationIdentifier Language.LSP.Protocol.Internal.Types.ChangeAnnotation.ChangeAnnotation))
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData WorkspaceEdit
 
 instance Aeson.ToJSON WorkspaceEdit where
   toJSON (WorkspaceEdit arg0 arg1 arg2) = Aeson.object $ concat $  ["changes" Language.LSP.Protocol.Types.Common..=? arg0

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.ResourceOperation where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -31,6 +32,8 @@ data ResourceOperation = ResourceOperation
   _annotationId :: (Maybe Language.LSP.Protocol.Internal.Types.ChangeAnnotationIdentifier.ChangeAnnotationIdentifier)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData ResourceOperation
 
 instance Aeson.ToJSON ResourceOperation where
   toJSON (ResourceOperation arg0 arg1) = Aeson.object $ concat $  [["kind" Aeson..= arg0]

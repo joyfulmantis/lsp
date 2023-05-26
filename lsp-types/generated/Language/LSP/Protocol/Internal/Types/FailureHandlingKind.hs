@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.FailureHandlingKind where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Set
@@ -43,7 +44,8 @@ data FailureHandlingKind =
   -}
   FailureHandlingKind_Undo
   deriving stock (Show, Eq, Ord, Generic)
-  deriving ( Aeson.ToJSON
+  deriving ( DeepSeq.NFData
+  , Aeson.ToJSON
   , Aeson.FromJSON ) via (Language.LSP.Protocol.Types.LspEnum.AsLspEnum FailureHandlingKind Data.Text.Text)
 
 instance Language.LSP.Protocol.Types.LspEnum.LspEnum FailureHandlingKind where

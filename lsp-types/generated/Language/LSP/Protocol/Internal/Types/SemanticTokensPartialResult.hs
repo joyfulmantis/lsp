@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.SemanticTokensPartialResult where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Types.Common
@@ -21,6 +22,8 @@ data SemanticTokensPartialResult = SemanticTokensPartialResult
   _data_ :: [Language.LSP.Protocol.Types.Common.UInt]
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData SemanticTokensPartialResult
 
 instance Aeson.ToJSON SemanticTokensPartialResult where
   toJSON (SemanticTokensPartialResult arg0) = Aeson.object $ concat $  [["data" Aeson..= arg0]]

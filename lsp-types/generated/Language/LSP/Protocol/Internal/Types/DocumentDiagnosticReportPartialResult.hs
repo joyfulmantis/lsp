@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DocumentDiagnosticReportPartialResult where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Map
 import qualified Data.Row.Aeson as Aeson
@@ -27,6 +28,8 @@ data DocumentDiagnosticReportPartialResult = DocumentDiagnosticReportPartialResu
   _relatedDocuments :: (Data.Map.Map Language.LSP.Protocol.Types.Uri.Uri (Language.LSP.Protocol.Internal.Types.FullDocumentDiagnosticReport.FullDocumentDiagnosticReport Language.LSP.Protocol.Types.Common.|? Language.LSP.Protocol.Internal.Types.UnchangedDocumentDiagnosticReport.UnchangedDocumentDiagnosticReport))
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData DocumentDiagnosticReportPartialResult
 
 instance Aeson.ToJSON DocumentDiagnosticReportPartialResult where
   toJSON (DocumentDiagnosticReportPartialResult arg0) = Aeson.object $ concat $  [["relatedDocuments" Aeson..= arg0]]

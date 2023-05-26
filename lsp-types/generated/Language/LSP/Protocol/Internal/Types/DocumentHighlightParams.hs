@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DocumentHighlightParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.Position
@@ -41,6 +42,8 @@ data DocumentHighlightParams = DocumentHighlightParams
   _partialResultToken :: (Maybe Language.LSP.Protocol.Internal.Types.ProgressToken.ProgressToken)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData DocumentHighlightParams
 
 instance Aeson.ToJSON DocumentHighlightParams where
   toJSON (DocumentHighlightParams arg0 arg1 arg2 arg3) = Aeson.object $ concat $  [["textDocument" Aeson..= arg0]

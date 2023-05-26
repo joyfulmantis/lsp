@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.WorkspaceFolder where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -30,6 +31,8 @@ data WorkspaceFolder = WorkspaceFolder
   _name :: Data.Text.Text
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData WorkspaceFolder
 
 instance Aeson.ToJSON WorkspaceFolder where
   toJSON (WorkspaceFolder arg0 arg1) = Aeson.object $ concat $  [["uri" Aeson..= arg0]

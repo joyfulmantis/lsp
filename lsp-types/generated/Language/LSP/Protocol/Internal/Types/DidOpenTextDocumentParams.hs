@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DidOpenTextDocumentParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.TextDocumentItem
@@ -23,6 +24,8 @@ data DidOpenTextDocumentParams = DidOpenTextDocumentParams
   _textDocument :: Language.LSP.Protocol.Internal.Types.TextDocumentItem.TextDocumentItem
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData DidOpenTextDocumentParams
 
 instance Aeson.ToJSON DidOpenTextDocumentParams where
   toJSON (DidOpenTextDocumentParams arg0) = Aeson.object $ concat $  [["textDocument" Aeson..= arg0]]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.ClientCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
@@ -57,6 +58,8 @@ data ClientCapabilities = ClientCapabilities
   _experimental :: (Maybe Data.Aeson.Value)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData ClientCapabilities
 
 instance Aeson.ToJSON ClientCapabilities where
   toJSON (ClientCapabilities arg0 arg1 arg2 arg3 arg4 arg5) = Aeson.object $ concat $  ["workspace" Language.LSP.Protocol.Types.Common..=? arg0

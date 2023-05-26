@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.UnregistrationParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.Unregistration
@@ -21,6 +22,8 @@ data UnregistrationParams = UnregistrationParams
   _unregisterations :: [Language.LSP.Protocol.Internal.Types.Unregistration.Unregistration]
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData UnregistrationParams
 
 instance Aeson.ToJSON UnregistrationParams where
   toJSON (UnregistrationParams arg0) = Aeson.object $ concat $  [["unregisterations" Aeson..= arg0]]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.NotebookCellTextDocumentFilter where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -38,6 +39,8 @@ data NotebookCellTextDocumentFilter = NotebookCellTextDocumentFilter
   _language :: (Maybe Data.Text.Text)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData NotebookCellTextDocumentFilter
 
 instance Aeson.ToJSON NotebookCellTextDocumentFilter where
   toJSON (NotebookCellTextDocumentFilter arg0 arg1) = Aeson.object $ concat $  [["notebook" Aeson..= arg0]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.DefinitionLink where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.LocationLink
@@ -19,4 +20,4 @@ the defining symbol
 -}
 newtype DefinitionLink = DefinitionLink Language.LSP.Protocol.Internal.Types.LocationLink.LocationLink
   deriving stock (Show, Eq, Ord, Generic)
-  deriving newtype (Aeson.ToJSON, Aeson.FromJSON)
+  deriving newtype (DeepSeq.NFData, Aeson.ToJSON, Aeson.FromJSON)

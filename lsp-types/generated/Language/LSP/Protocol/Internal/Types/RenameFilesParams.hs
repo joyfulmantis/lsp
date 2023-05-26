@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.RenameFilesParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.FileRename
@@ -27,6 +28,8 @@ data RenameFilesParams = RenameFilesParams
   _files :: [Language.LSP.Protocol.Internal.Types.FileRename.FileRename]
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData RenameFilesParams
 
 instance Aeson.ToJSON RenameFilesParams where
   toJSON (RenameFilesParams arg0) = Aeson.object $ concat $  [["files" Aeson..= arg0]]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.WorkspaceSymbolClientCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row as Row
 import qualified Data.Row.Aeson as Aeson
@@ -48,6 +49,8 @@ data WorkspaceSymbolClientCapabilities = WorkspaceSymbolClientCapabilities
   _resolveSupport :: (Maybe (Row.Rec ("properties" Row..== [Data.Text.Text] Row..+ Row.Empty)))
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData WorkspaceSymbolClientCapabilities
 
 instance Aeson.ToJSON WorkspaceSymbolClientCapabilities where
   toJSON (WorkspaceSymbolClientCapabilities arg0 arg1 arg2 arg3) = Aeson.object $ concat $  ["dynamicRegistration" Language.LSP.Protocol.Types.Common..=? arg0

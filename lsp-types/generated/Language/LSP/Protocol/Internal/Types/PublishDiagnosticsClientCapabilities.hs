@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.PublishDiagnosticsClientCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row as Row
 import qualified Data.Row.Aeson as Aeson
@@ -56,6 +57,8 @@ data PublishDiagnosticsClientCapabilities = PublishDiagnosticsClientCapabilities
   _dataSupport :: (Maybe Bool)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData PublishDiagnosticsClientCapabilities
 
 instance Aeson.ToJSON PublishDiagnosticsClientCapabilities where
   toJSON (PublishDiagnosticsClientCapabilities arg0 arg1 arg2 arg3 arg4) = Aeson.object $ concat $  ["relatedInformation" Language.LSP.Protocol.Types.Common..=? arg0

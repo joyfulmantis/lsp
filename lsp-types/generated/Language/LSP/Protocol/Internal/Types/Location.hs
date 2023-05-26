@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.Location where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.Range
@@ -28,6 +29,8 @@ data Location = Location
   _range :: Language.LSP.Protocol.Internal.Types.Range.Range
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData Location
 
 instance Aeson.ToJSON Location where
   toJSON (Location arg0 arg1) = Aeson.object $ concat $  [["uri" Aeson..= arg0]

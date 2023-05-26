@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.ChangeAnnotation where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -38,6 +39,8 @@ data ChangeAnnotation = ChangeAnnotation
   _description :: (Maybe Data.Text.Text)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData ChangeAnnotation
 
 instance Aeson.ToJSON ChangeAnnotation where
   toJSON (ChangeAnnotation arg0 arg1 arg2) = Aeson.object $ concat $  [["label" Aeson..= arg0]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.FoldingRangeParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.ProgressToken
@@ -35,6 +36,8 @@ data FoldingRangeParams = FoldingRangeParams
   _textDocument :: Language.LSP.Protocol.Internal.Types.TextDocumentIdentifier.TextDocumentIdentifier
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData FoldingRangeParams
 
 instance Aeson.ToJSON FoldingRangeParams where
   toJSON (FoldingRangeParams arg0 arg1 arg2) = Aeson.object $ concat $  ["workDoneToken" Language.LSP.Protocol.Types.Common..=? arg0

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.CodeActionRegistrationOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.CodeActionKind
@@ -45,6 +46,8 @@ data CodeActionRegistrationOptions = CodeActionRegistrationOptions
   _resolveProvider :: (Maybe Bool)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData CodeActionRegistrationOptions
 
 instance Aeson.ToJSON CodeActionRegistrationOptions where
   toJSON (CodeActionRegistrationOptions arg0 arg1 arg2 arg3) = Aeson.object $ concat $  [["documentSelector" Aeson..= arg0]

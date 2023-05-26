@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.SemanticTokensDeltaPartialResult where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.SemanticTokensEdit
@@ -22,6 +23,8 @@ data SemanticTokensDeltaPartialResult = SemanticTokensDeltaPartialResult
   _edits :: [Language.LSP.Protocol.Internal.Types.SemanticTokensEdit.SemanticTokensEdit]
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData SemanticTokensDeltaPartialResult
 
 instance Aeson.ToJSON SemanticTokensDeltaPartialResult where
   toJSON (SemanticTokensDeltaPartialResult arg0) = Aeson.object $ concat $  [["edits" Aeson..= arg0]]

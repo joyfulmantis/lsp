@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.InlayHintRegistrationOptions where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -43,6 +44,8 @@ data InlayHintRegistrationOptions = InlayHintRegistrationOptions
   _id :: (Maybe Data.Text.Text)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData InlayHintRegistrationOptions
 
 instance Aeson.ToJSON InlayHintRegistrationOptions where
   toJSON (InlayHintRegistrationOptions arg0 arg1 arg2 arg3) = Aeson.object $ concat $  ["workDoneProgress" Language.LSP.Protocol.Types.Common..=? arg0

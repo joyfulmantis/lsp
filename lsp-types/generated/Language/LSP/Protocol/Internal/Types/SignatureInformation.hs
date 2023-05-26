@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.SignatureInformation where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -48,6 +49,8 @@ data SignatureInformation = SignatureInformation
   _activeParameter :: (Maybe Language.LSP.Protocol.Types.Common.UInt)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData SignatureInformation
 
 instance Aeson.ToJSON SignatureInformation where
   toJSON (SignatureInformation arg0 arg1 arg2 arg3) = Aeson.object $ concat $  [["label" Aeson..= arg0]

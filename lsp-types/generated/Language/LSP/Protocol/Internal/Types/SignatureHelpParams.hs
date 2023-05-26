@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.SignatureHelpParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.Position
@@ -44,6 +45,8 @@ data SignatureHelpParams = SignatureHelpParams
   _context :: (Maybe Language.LSP.Protocol.Internal.Types.SignatureHelpContext.SignatureHelpContext)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData SignatureHelpParams
 
 instance Aeson.ToJSON SignatureHelpParams where
   toJSON (SignatureHelpParams arg0 arg1 arg2 arg3) = Aeson.object $ concat $  [["textDocument" Aeson..= arg0]

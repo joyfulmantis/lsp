@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.ConfigurationParams where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.ConfigurationItem
@@ -22,6 +23,8 @@ data ConfigurationParams = ConfigurationParams
   _items :: [Language.LSP.Protocol.Internal.Types.ConfigurationItem.ConfigurationItem]
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData ConfigurationParams
 
 instance Aeson.ToJSON ConfigurationParams where
   toJSON (ConfigurationParams arg0) = Aeson.object $ concat $  [["items" Aeson..= arg0]]

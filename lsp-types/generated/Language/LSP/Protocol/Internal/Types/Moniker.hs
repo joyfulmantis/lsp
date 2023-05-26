@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.Moniker where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -43,6 +44,8 @@ data Moniker = Moniker
   _kind :: (Maybe Language.LSP.Protocol.Internal.Types.MonikerKind.MonikerKind)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData Moniker
 
 instance Aeson.ToJSON Moniker where
   toJSON (Moniker arg0 arg1 arg2 arg3) = Aeson.object $ concat $  [["scheme" Aeson..= arg0]

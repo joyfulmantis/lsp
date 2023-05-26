@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.CompletionItem where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
@@ -204,6 +205,8 @@ data CompletionItem = CompletionItem
   _data_ :: (Maybe Data.Aeson.Value)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData CompletionItem
 
 instance Aeson.ToJSON CompletionItem where
   toJSON (CompletionItem arg0 arg1 arg2 arg3 arg4 arg5 arg6 arg7 arg8 arg9 arg10 arg11 arg12 arg13 arg14 arg15 arg16 arg17 arg18) = Aeson.object $ concat $  [["label" Aeson..= arg0]

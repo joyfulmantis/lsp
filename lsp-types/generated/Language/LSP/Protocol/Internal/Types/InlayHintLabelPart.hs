@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.InlayHintLabelPart where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -59,6 +60,8 @@ data InlayHintLabelPart = InlayHintLabelPart
   _command :: (Maybe Language.LSP.Protocol.Internal.Types.Command.Command)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData InlayHintLabelPart
 
 instance Aeson.ToJSON InlayHintLabelPart where
   toJSON (InlayHintLabelPart arg0 arg1 arg2 arg3) = Aeson.object $ concat $  [["value" Aeson..= arg0]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.ColorInformation where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Language.LSP.Protocol.Internal.Types.Color
@@ -29,6 +30,8 @@ data ColorInformation = ColorInformation
   _color :: Language.LSP.Protocol.Internal.Types.Color.Color
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData ColorInformation
 
 instance Aeson.ToJSON ColorInformation where
   toJSON (ColorInformation arg0 arg1) = Aeson.object $ concat $  [["range" Aeson..= arg0]

@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.WorkspaceFoldersServerCapabilities where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -33,6 +34,8 @@ data WorkspaceFoldersServerCapabilities = WorkspaceFoldersServerCapabilities
   _changeNotifications :: (Maybe (Data.Text.Text Language.LSP.Protocol.Types.Common.|? Bool))
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData WorkspaceFoldersServerCapabilities
 
 instance Aeson.ToJSON WorkspaceFoldersServerCapabilities where
   toJSON (WorkspaceFoldersServerCapabilities arg0 arg1) = Aeson.object $ concat $  ["supported" Language.LSP.Protocol.Types.Common..=? arg0

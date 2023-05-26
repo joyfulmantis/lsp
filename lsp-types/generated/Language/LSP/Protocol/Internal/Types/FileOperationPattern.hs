@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.FileOperationPattern where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
 import qualified Data.Text
@@ -46,6 +47,8 @@ data FileOperationPattern = FileOperationPattern
   _options :: (Maybe Language.LSP.Protocol.Internal.Types.FileOperationPatternOptions.FileOperationPatternOptions)
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData FileOperationPattern
 
 instance Aeson.ToJSON FileOperationPattern where
   toJSON (FileOperationPattern arg0 arg1 arg2) = Aeson.object $ concat $  [["glob" Aeson..= arg0]

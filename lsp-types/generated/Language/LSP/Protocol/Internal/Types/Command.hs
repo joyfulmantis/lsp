@@ -6,6 +6,7 @@
 module Language.LSP.Protocol.Internal.Types.Command where
 
 import GHC.Generics
+import qualified Control.DeepSeq as DeepSeq
 import qualified Data.Aeson
 import qualified Data.Aeson as Aeson
 import qualified Data.Row.Aeson as Aeson
@@ -38,6 +39,8 @@ data Command = Command
   _arguments :: (Maybe [Data.Aeson.Value])
   }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance DeepSeq.NFData Command
 
 instance Aeson.ToJSON Command where
   toJSON (Command arg0 arg1 arg2) = Aeson.object $ concat $  [["title" Aeson..= arg0]

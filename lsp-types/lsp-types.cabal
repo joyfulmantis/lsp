@@ -67,7 +67,7 @@ library
     UndecidableInstances
 
   build-depends:
-    , aeson             >=1.2.2.0
+    , aeson             >=2.0.0.0
     , base              >=4.11    && <5
     , binary
     , containers
